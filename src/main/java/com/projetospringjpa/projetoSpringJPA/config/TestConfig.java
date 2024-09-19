@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.projetospringjpa.projetoSpringJPA.entities.User;
-import com.projetospringjpa.projetoSpringJPA.rpositories.UserRepository;
+import com.projetospringjpa.projetoSpringJPA.repositories.UserRepository;
 
 @Configuration
 @Profile("test")

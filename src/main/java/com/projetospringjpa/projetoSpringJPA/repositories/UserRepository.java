@@ -1,4 +1,4 @@
-package com.projetospringjpa.projetoSpringJPA.rpositories;
+package com.projetospringjpa.projetoSpringJPA.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
