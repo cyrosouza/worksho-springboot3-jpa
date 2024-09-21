@@ -17,17 +17,17 @@ import com.projetospringjpa.projetoSpringJPA.service.OrderService;
 public class OrderResource {
 	
 	@Autowired
-	private OrderService OrderService;
+	private OrderService orderService;
 	
 	@GetMapping
 	public ResponseEntity<List<Order>> findAll() {
-		List<Order> orderList = OrderService.findAll();
-		return ResponseEntity.ok().body(orderList);
+		List<Order> orders = orderService.findAll();
+		return ResponseEntity.ok().body(orders);
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Order> findById(@PathVariable Long id) {
-		Order order = OrderService.findById(id);
+		Order order = orderService.findById(id);
 		return ResponseEntity.ok().body(order);
 	}
 
