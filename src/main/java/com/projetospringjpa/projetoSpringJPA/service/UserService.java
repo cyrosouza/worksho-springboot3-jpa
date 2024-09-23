@@ -12,6 +12,8 @@ import com.projetospringjpa.projetoSpringJPA.repositories.UserRepository;
 import com.projetospringjpa.projetoSpringJPA.service.exceptions.DatabaseException;
 import com.projetospringjpa.projetoSpringJPA.service.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
 
@@ -33,7 +35,7 @@ public class UserService {
 	
 	public void delete(Long id) { 
 		userRepository.findById(id).orElseThrow(
-	        () -> new ResourceNotFoundException(id)); 
+	        () -> new ResourceNotFoundException(id));
 	    try { 
 	    	userRepository.deleteById(id); 
 	    } catch (DataIntegrityViolationException e) { 
@@ -42,9 +44,13 @@ public class UserService {
 	}
 	
 	public User update(Long id, User user) {
-		User userEntity = userRepository.getReferenceById(id);
-		updateData(userEntity, user);
-		return userRepository.save(userEntity);
+		try {
+			User userEntity = userRepository.getReferenceById(id);
+			updateData(userEntity, user);
+			return userRepository.save(userEntity);
+		} catch (EntityNotFoundException e) {
+	        throw new ResourceNotFoundException(id); 
+		}
 	}
 
 	private void updateData(User userEntity, User user) {
