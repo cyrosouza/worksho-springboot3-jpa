@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.projetospringjpa.projetoSpringJPA.service.exceptions.DatabaseException;
 import com.projetospringjpa.projetoSpringJPA.service.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,4 +23,12 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(httpStatus).body(standardError);
 	}
 
+	@ExceptionHandler(DatabaseException.class)
+	public ResponseEntity<StandardError> database(DatabaseException e, HttpServletRequest request) {
+		String error = "Database error";
+		HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+		StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(httpStatus).body(standardError);
+	}
+	
 }
